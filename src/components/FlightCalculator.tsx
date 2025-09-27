@@ -69,10 +69,11 @@ const FlightCalculator = () => {
         const times = calculateTimes(flightTime, durationHours);
         
         if (times) {
+          const hours = (travelTimeResult.duration / 60).toFixed(1);
           setResult({
             ...times,
             travelInfo: {
-              duration: `${Math.round(travelTimeResult.duration)} דקות`,
+              duration: `${hours} שעות`,
               distance: travelTimeResult.distance
             }
           });

@@ -34,9 +34,10 @@ export const useTravelTime = (): UseTravelTimeResult => {
     try {
       const result = await calculateTravelTime(origin, destination);
       
+      const hours = (result.duration / 60).toFixed(1);
       toast({
         title: "חישוב הושלם בהצלחה",
-        description: `זמן נסיעה: ${Math.round(result.duration)} דקות (${result.distance})`,
+        description: `זמן נסיעה: ${hours} שעות (${result.distance})`,
       });
 
       return result;
