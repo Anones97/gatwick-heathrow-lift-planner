@@ -125,14 +125,14 @@ const FlightCalculator = () => {
             <TabsContent value="basic">
               <Card className="shadow-professional bg-gradient-card border-0">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-london-navy">
+                  <CardTitle className="flex items-center gap-2 text-london-navy justify-end">
                     מחשבון זמני יציאה בסיסי
                     <Clock className="w-5 h-5" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
+                    <div className="space-y-2 text-right">
                       <Label htmlFor="flight-time" className="text-london-navy font-medium">
                         שעת טיסה
                       </Label>
@@ -141,11 +141,12 @@ const FlightCalculator = () => {
                         type="time"
                         value={flightTime}
                         onChange={(e) => setFlightTime(e.target.value)}
-                        className="bg-white border-london-grey focus:border-london-blue"
+                        className="bg-white border-london-grey focus:border-london-blue text-right"
+                        dir="rtl"
                       />
                     </div>
                     
-                    <div className="space-y-2">
+                    <div className="space-y-2 text-right">
                       <Label htmlFor="travel-duration" className="text-london-navy font-medium">
                         משך נסיעה (שעות)
                       </Label>
@@ -156,7 +157,8 @@ const FlightCalculator = () => {
                         placeholder="1.5"
                         value={travelDuration}
                         onChange={(e) => setTravelDuration(e.target.value)}
-                        className="bg-white border-london-grey focus:border-london-blue"
+                        className="bg-white border-london-grey focus:border-london-blue text-right"
+                        dir="rtl"
                       />
                     </div>
                   </div>
@@ -175,7 +177,7 @@ const FlightCalculator = () => {
             <TabsContent value="advanced">
               <Card className="shadow-professional bg-gradient-card border-0">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-london-navy">
+                  <CardTitle className="flex items-center gap-2 text-london-navy justify-end">
                     מחשבון מתקדם עם חיפוש כתובות
                     <MapPin className="w-5 h-5" />
                   </CardTitle>
@@ -186,20 +188,21 @@ const FlightCalculator = () => {
                     onChange={setAddress}
                     placeholder="הזן כתובת מלון, שם מקום או מיקוד"
                     label="כתובת מלון או מיקוד"
+                    className="text-right"
                   />
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
+                    <div className="space-y-2 text-right">
                       <Label className="text-london-navy font-medium">
                         שדה תעופה
                       </Label>
-                      <Select value={selectedAirport} onValueChange={setSelectedAirport}>
-                        <SelectTrigger className="bg-white border-london-grey">
+                      <Select value={selectedAirport} onValueChange={setSelectedAirport} dir="rtl">
+                        <SelectTrigger className="bg-white border-london-grey text-right">
                           <SelectValue placeholder="בחר שדה תעופה" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-white z-50">
                           {airports.map((airport) => (
-                            <SelectItem key={airport.id} value={airport.id}>
+                            <SelectItem key={airport.id} value={airport.id} className="text-right">
                               {airport.name}
                             </SelectItem>
                           ))}
@@ -207,7 +210,7 @@ const FlightCalculator = () => {
                       </Select>
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-2 text-right">
                       <Label htmlFor="flight-time-advanced" className="text-london-navy font-medium">
                         שעת טיסה
                       </Label>
@@ -216,7 +219,8 @@ const FlightCalculator = () => {
                         type="time"
                         value={flightTime}
                         onChange={(e) => setFlightTime(e.target.value)}
-                        className="bg-white border-london-grey focus:border-london-blue"
+                        className="bg-white border-london-grey focus:border-london-blue text-right"
+                        dir="rtl"
                       />
                     </div>
                   </div>
@@ -243,7 +247,7 @@ const FlightCalculator = () => {
           {result && (
             <Card className="mt-6 shadow-professional bg-white border-0">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-london-navy">
+                <CardTitle className="flex items-center gap-2 text-london-navy justify-end">
                   תוצאות החישוב
                   <Plane className="w-5 h-5" />
                 </CardTitle>
@@ -280,8 +284,8 @@ const FlightCalculator = () => {
 
                 {result.travelInfo && (
                   <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                    <h4 className="font-medium text-green-800 mb-2">פרטי נסיעה מ-Google Maps:</h4>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
+                    <h4 className="font-medium text-green-800 mb-2 text-right">פרטי נסיעה מ-Google Maps:</h4>
+                    <div className="grid grid-cols-2 gap-4 text-sm text-right">
                       <div>
                         <span className="font-medium text-green-700">זמן נסיעה:</span>
                         <span className="text-green-600 mr-2">{result.travelInfo.duration}</span>

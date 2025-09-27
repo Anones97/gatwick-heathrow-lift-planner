@@ -141,13 +141,13 @@ const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({
 
   return (
     <div className={`relative space-y-2 ${className}`}>
-      <Label className="text-london-navy font-medium">
+      <Label className="text-london-navy font-medium block text-right">
         {label}
       </Label>
       
       <div className="relative">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-london-navy/40 w-4 h-4" />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-london-navy/40 w-4 h-4" />
           <Input
             ref={inputRef}
             value={value}
@@ -158,9 +158,10 @@ const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({
                 setShowDropdown(true);
               }
             }}
-            className="bg-white border-london-grey focus:border-london-blue pl-10"
+            className="bg-white border-london-grey focus:border-london-blue pr-10 text-right"
             placeholder={placeholder}
             autoComplete="off"
+            dir="rtl"
           />
         </div>
 
@@ -172,18 +173,18 @@ const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({
             {predictions.map((prediction, index) => (
               <div
                 key={prediction.place_id}
-                className={`px-4 py-3 cursor-pointer hover:bg-london-blue/10 border-b border-london-grey/20 last:border-b-0 ${
+                className={`px-4 py-3 cursor-pointer hover:bg-london-blue/10 border-b border-london-grey/20 last:border-b-0 text-right ${
                   selectedIndex === index ? 'bg-london-blue/10' : ''
                 }`}
                 onClick={() => selectPrediction(prediction)}
               >
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-3 flex-row-reverse">
                   <MapPin className="w-4 h-4 text-london-navy/60 mt-0.5 flex-shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <div className="font-medium text-london-navy text-sm">
+                  <div className="flex-1 min-w-0 text-right">
+                    <div className="font-medium text-london-navy text-sm text-right">
                       {prediction.structured_formatting.main_text}
                     </div>
-                    <div className="text-london-navy/60 text-xs mt-0.5 truncate">
+                    <div className="text-london-navy/60 text-xs mt-0.5 truncate text-right">
                       {prediction.structured_formatting.secondary_text}
                     </div>
                   </div>
@@ -195,7 +196,7 @@ const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({
 
         {isLoading && (
           <div className="absolute z-50 w-full mt-1 bg-white border border-london-grey rounded-md shadow-lg">
-            <div className="px-4 py-3 text-london-navy/60 text-sm">
+            <div className="px-4 py-3 text-london-navy/60 text-sm text-right">
               מחפש כתובות...
             </div>
           </div>
