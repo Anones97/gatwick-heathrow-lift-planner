@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { calculateTravelTime, type TravelTimeResult } from '@/services/mapsService';
 import { useToast } from '@/hooks/use-toast';
+import { formatDurationToHoursMinutes } from '@/utils/timeFormatters';
 
 interface UseTravelTimeResult {
   calculateTime: (origin: string, destination: string) => Promise<TravelTimeResult | null>;
@@ -34,10 +35,10 @@ export const useTravelTime = (): UseTravelTimeResult => {
     try {
       const result = await calculateTravelTime(origin, destination);
       
-      const hours = (result.duration / 60).toFixed(1);
+      const formattedDuration = formatDurationToHoursMinutes(result.duration);
       toast({
         title: "חישוב הושלם בהצלחה",
-        description: `זמן נסיעה: ${hours} שעות (${result.distance})`,
+        description: `זמן נסיעה: ${formattedDuration} (${result.distance})`,
       });
 
       return result;

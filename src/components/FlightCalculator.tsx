@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Clock, MapPin, Plane, Calculator, Loader2 } from 'lucide-react';
 import { useTravelTime } from '@/hooks/useTravelTime';
 import AddressAutocomplete from '@/components/AddressAutocomplete';
+import { formatDurationToHoursMinutes, formatDurationToDecimalHours } from '@/utils/timeFormatters';
 
 const airports = [
   { id: 'gatwick', name: 'Gatwick (LGW)', code: 'LGW' },
@@ -65,15 +66,15 @@ const FlightCalculator = () => {
       
       if (travelTimeResult) {
         // Convert minutes to hours for calculation
-        const durationHours = (travelTimeResult.duration / 60).toString();
+        const durationHours = formatDurationToDecimalHours(travelTimeResult.duration);
         const times = calculateTimes(flightTime, durationHours);
         
         if (times) {
-          const hours = (travelTimeResult.duration / 60).toFixed(1);
+          const formattedDuration = formatDurationToHoursMinutes(travelTimeResult.duration);
           setResult({
             ...times,
             travelInfo: {
-              duration: `${hours} שעות`,
+              duration: formattedDuration,
               distance: travelTimeResult.distance
             }
           });
