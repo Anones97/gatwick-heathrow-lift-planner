@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Clock, MapPin, Plane, Calculator, Loader2 } from 'lucide-react';
 import { useTravelTime } from '@/hooks/useTravelTime';
+import AddressAutocomplete from '@/components/AddressAutocomplete';
 
 const airports = [
   { id: 'gatwick', name: 'Gatwick (LGW)', code: 'LGW' },
@@ -172,18 +173,12 @@ const FlightCalculator = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="address" className="text-london-navy font-medium">
-                      כתובת מלון או מיקוד
-                    </Label>
-                    <Input
-                      id="address"
-                      placeholder="הזן כתובת, שם מלון או מיקוד"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      className="bg-white border-london-grey focus:border-london-blue"
-                    />
-                  </div>
+                  <AddressAutocomplete
+                    value={address}
+                    onChange={setAddress}
+                    placeholder="הזן כתובת מלון, שם מקום או מיקוד"
+                    label="כתובת מלון או מיקוד"
+                  />
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
