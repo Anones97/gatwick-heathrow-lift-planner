@@ -86,15 +86,21 @@ const FlightCalculator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="min-h-screen bg-gradient-hero" dir="rtl">
       <div className="container mx-auto p-6">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">
             מחשבון זמני יציאה - מוניות לונדון
           </h1>
-          <p className="text-white/80 text-lg">
+          <p className="text-white/80 text-lg mb-4">
             חישוב מדויק של זמני יציאה לשדות התעופה בלונדון
           </p>
+          <div className="max-w-2xl mx-auto text-white/70 text-sm bg-white/10 backdrop-blur-sm rounded-lg p-4">
+            <p>
+              המחשבון עוזר לנוסעים לחשב את הזמן האידיאלי ליציאה מהמלון כדי להגיע לשדה התעופה בזמן. 
+              החישוב לוקח בחשבון זמן נסיעה + 3 שעות הגעה מוקדמת לשדה התעופה.
+            </p>
+          </div>
         </div>
 
         <div className="max-w-4xl mx-auto">
@@ -120,8 +126,8 @@ const FlightCalculator = () => {
               <Card className="shadow-professional bg-gradient-card border-0">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-london-navy">
-                    <Clock className="w-5 h-5" />
                     מחשבון זמני יציאה בסיסי
+                    <Clock className="w-5 h-5" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -170,8 +176,8 @@ const FlightCalculator = () => {
               <Card className="shadow-professional bg-gradient-card border-0">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-london-navy">
-                    <MapPin className="w-5 h-5" />
                     מחשבון מתקדם עם חיפוש כתובות
+                    <MapPin className="w-5 h-5" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -222,17 +228,13 @@ const FlightCalculator = () => {
                   >
                     {isLoading ? (
                       <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                         מחשב זמן נסיעה...
+                        <Loader2 className="w-4 h-4 ml-2 animate-spin" />
                       </>
                     ) : (
-                      'חשב זמני יציאה עם Google Maps'
+                      "חשב זמני יציאה עם Google Maps"
                     )}
                   </Button>
-
-                  <div className="text-sm text-london-navy/70 bg-london-blue/10 p-3 rounded-lg">
-                    ✅ אינטגרציה עם Google Maps פעילה - חישוב זמני נסיעה מדויקים בזמן אמת
-                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -242,8 +244,8 @@ const FlightCalculator = () => {
             <Card className="mt-6 shadow-professional bg-white border-0">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-london-navy">
-                  <Plane className="w-5 h-5" />
                   תוצאות החישוב
+                  <Plane className="w-5 h-5" />
                 </CardTitle>
               </CardHeader>
               <CardContent>

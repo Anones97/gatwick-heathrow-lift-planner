@@ -147,7 +147,7 @@ const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({
       
       <div className="relative">
         <div className="relative">
-          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-london-navy/40 w-4 h-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-london-navy/40 w-4 h-4" />
           <Input
             ref={inputRef}
             value={value}
@@ -158,7 +158,7 @@ const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({
                 setShowDropdown(true);
               }
             }}
-            className="bg-white border-london-grey focus:border-london-blue pr-10"
+            className="bg-white border-london-grey focus:border-london-blue pl-10"
             placeholder={placeholder}
             autoComplete="off"
           />
