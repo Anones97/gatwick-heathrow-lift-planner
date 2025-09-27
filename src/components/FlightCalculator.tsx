@@ -5,7 +5,8 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Clock, MapPin, Plane, Calculator } from 'lucide-react';
+import { Clock, MapPin, Plane, Calculator, Loader2 } from 'lucide-react';
+import { useTravelTime } from '@/hooks/useTravelTime';
 
 const airports = [
   { id: 'gatwick', name: 'Gatwick (LGW)', code: 'LGW' },
@@ -23,7 +24,13 @@ const FlightCalculator = () => {
     arrivalTime: string;
     departureTime: string;
     flightTime: string;
+    travelInfo?: {
+      duration: string;
+      distance: string;
+    };
   } | null>(null);
+
+  const { calculateTime, isLoading } = useTravelTime();
 
   const calculateTimes = (flight: string, duration: string) => {
     if (!flight || !duration) return null;
@@ -49,14 +56,30 @@ const FlightCalculator = () => {
     setResult(times);
   };
 
-  const handleAdvancedCalculate = () => {
-    if (!address || !selectedAirport || !flightTime) return;
+  const handleAdvancedCalculate = async () => {
+    if (!address?.trim() || !selectedAirport || !flightTime) return;
     
-    // כאן בעתיד נוסיף אינטגרציה עם Google Maps API
-    // לעת עתה נשתמש בזמן נסיעה ברירת מחדל
-    const defaultDuration = "1.5"; // שעה וחצי כברירת מחדל
-    const times = calculateTimes(flightTime, defaultDuration);
-    setResult(times);
+    try {
+      const travelTimeResult = await calculateTime(address.trim(), selectedAirport);
+      
+      if (travelTimeResult) {
+        // Convert minutes to hours for calculation
+        const durationHours = (travelTimeResult.duration / 60).toString();
+        const times = calculateTimes(flightTime, durationHours);
+        
+        if (times) {
+          setResult({
+            ...times,
+            travelInfo: {
+              duration: `${Math.round(travelTimeResult.duration)} דקות`,
+              distance: travelTimeResult.distance
+            }
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error calculating travel time:', error);
+    }
   };
 
   return (
@@ -198,13 +221,20 @@ const FlightCalculator = () => {
                   <Button 
                     onClick={handleAdvancedCalculate}
                     className="w-full bg-london-red hover:bg-london-red/90 text-white shadow-button"
-                    disabled={!address || !selectedAirport || !flightTime}
+                    disabled={!address?.trim() || !selectedAirport || !flightTime || isLoading}
                   >
-                    חשב זמני יציאה עם חיפוש כתובת
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        מחשב זמן נסיעה...
+                      </>
+                    ) : (
+                      'חשב זמני יציאה עם Google Maps'
+                    )}
                   </Button>
 
                   <div className="text-sm text-london-navy/70 bg-london-blue/10 p-3 rounded-lg">
-                    💡 האינטגרציה עם Google Maps תתווסף בקרוב לחישוב זמני נסיעה מדויקים
+                    ✅ אינטגרציה עם Google Maps פעילה - חישוב זמני נסיעה מדויקים בזמן אמת
                   </div>
                 </CardContent>
               </Card>
@@ -248,6 +278,22 @@ const FlightCalculator = () => {
                     </div>
                   </div>
                 </div>
+
+                {result.travelInfo && (
+                  <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <h4 className="font-medium text-green-800 mb-2">פרטי נסיעה מ-Google Maps:</h4>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <span className="font-medium text-green-700">זמן נסיעה:</span>
+                        <span className="text-green-600 mr-2">{result.travelInfo.duration}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-green-700">מרחק:</span>
+                        <span className="text-green-600 mr-2">{result.travelInfo.distance}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           )}
