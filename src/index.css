@@ -2,14 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* London Taxi Calculator Design System - Professional British Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 210 20% 98%;
+    --foreground: 220 20% 15%;
+    
+    /* British inspired color palette */
+    --london-navy: 220 35% 25%;
+    --london-red: 355 85% 55%;
+    --london-blue: 210 80% 55%;
+    --london-gold: 45 95% 65%;
+    --london-grey: 215 15% 85%;
+    
+    /* Professional gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--london-navy)), hsl(var(--london-blue)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--background)), hsl(var(--london-grey)));
+    --gradient-accent: linear-gradient(90deg, hsl(var(--london-red)), hsl(var(--london-gold)));
+    
+    /* Shadows for depth */
+    --shadow-professional: 0 4px 20px -4px hsl(var(--london-navy) / 0.15);
+    --shadow-card: 0 2px 12px -2px hsl(var(--london-navy) / 0.08);
+    --shadow-button: 0 2px 8px -2px hsl(var(--london-red) / 0.25);
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -17,17 +32,17 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: var(--london-navy);
+    --primary-foreground: 210 20% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: var(--london-grey);
+    --secondary-foreground: var(--london-navy);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: var(--london-grey);
+    --muted-foreground: 220 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: var(--london-red);
+    --accent-foreground: 210 20% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
